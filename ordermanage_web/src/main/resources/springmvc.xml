@@ -14,8 +14,9 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!-- 扫描Controller包 -->
     <context:component-scan base-package="controller"/>
-    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
+    <!-- 开启SpringMVC注解的支持 -->
+    <mvc:annotation-driven />
     <!-- 配置视图解析器 -->
     <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/"/>
@@ -33,6 +34,9 @@
     <mvc:resources mapping="/pages/**" location="/pages/"></mvc:resources>
     <mvc:resources mapping="/plugins/**" location="/plugins/"></mvc:resources>
 
+
+
+    <aop:aspectj-autoproxy />
 
 
 </beans>

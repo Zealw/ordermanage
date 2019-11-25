@@ -13,7 +13,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="../img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="${pageContext.request.contextPath}/img/user2-160x160.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>张猿猿</p>
@@ -88,7 +88,7 @@
                 <ul class="treeview-menu">
 
                     <li id="charts-chartjs">
-                        <a href="all-charts-chartjs.html">
+                        <a href="${pageContext.request.contextPath}/product/findAll">
                             <i class="fa fa-circle-o"></i> 产品管理
                         </a>
                     </li>
