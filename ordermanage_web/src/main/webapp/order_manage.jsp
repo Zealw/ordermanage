@@ -119,7 +119,7 @@
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
                                     <%--onchange="location.href = '${pageContext.request.contextPath}/product/findByProductName?productName='+$('#sereach').val()"--%>
-                                    <input id="search" type="text" class="form-control input-sm" placeholder="搜索" onchange="location.href = '${pageContext.request.contextPath}/product/findByProductName?productName='+$('#search').val()">
+                                    <input id="search" type="text" class="form-control input-sm" placeholder="搜索" onchange="location.href = '${pageContext.request.contextPath}/product/findByProductName?productName='+$('#sereach').val()">
                                     <span class="glyphicon glyphicon-search form-control-feedback"></span>
                                 </div>
                             </div>
@@ -368,31 +368,40 @@
         },"json")
 
     }
+    $(function () {
+
+    })
     function orderByProductNum() {
-        var status = "asc";
-        if(status == "asc"){
+        var url = window.location.search;
+        var status;
+        alert(url.indexOf("asc") >= 0)
+        if(url.indexOf("asc") >= 0){
             status = "desc";
-        }else if(status == "desc"){
+        }else{
             status = "asc";
         }
         location.href = "${pageContext.request.contextPath}/product/findOrderBy?orderSql=productNum "+status;
 
     }
     function orderByDepartureTime() {
-        var status = "asc";
-        if(status == "asc"){
+        var url = window.location.search;
+        var status;
+        alert(url.indexOf("asc") >= 0)
+        if(url.indexOf("asc") >= 0){
             status = "desc";
-        }else if(status == "desc"){
+        }else{
             status = "asc";
         }
         location.href = "${pageContext.request.contextPath}/product/findOrderBy?orderSql=departureTime "+status;
 
     }
     function orderByProductPrice() {
-        var status = "asc";
-        if(status == "asc"){
+        var url = window.location.search;
+        var status;
+        alert(url.indexOf("asc") >= 0)
+        if(url.indexOf("asc") >= 0){
             status = "desc";
-        }else if(status == "desc"){
+        }else{
             status = "asc";
         }
         location.href = "${pageContext.request.contextPath}/product/findOrderBy?orderSql=productPrice "+status;
