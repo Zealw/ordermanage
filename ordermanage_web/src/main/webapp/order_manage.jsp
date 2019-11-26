@@ -95,7 +95,7 @@
 
                     <!-- 数据表格 -->
                     <div class="table-box">
-                        <form action="${pageContext.request.contextPath}/product/del" method="post">
+                        <form action="" name="form1" method="post">
                             <!--工具栏-->
                             <div class="pull-left">
                                 <div class="form-group form-inline">
@@ -105,14 +105,11 @@
                                             <i class="fa fa-file-o"></i> 新建
                                         </button>
                                         <%--onclick="delBatch()" 如果是true，则会执行submit，如果不是true，则不执行submit--%>
+                                        <%--<input type="submit" class="btn btn-default"  onclick="delBatch()" value="删除">--%>
+                                        <input value="删除" class="btn btn-default" type="submit" onclick="form1.action='${pageContext.request.contextPath}/product/del';form1.submit();"  onclick="delBatch()"/>
+                                        <input value="开启" class="btn btn-default" type="submit" onclick="form1.action='${pageContext.request.contextPath}/product/updateStatusOpen';form1.submit();"  onclick="openBatch()"/>
+                                        <input value="屏蔽" class="btn btn-default" type="submit" onclick="form1.action='${pageContext.request.contextPath}/product/updateStatusClose';form1.submit();"  onclick="closeBatch()"/>
 
-                                        <input type="submit" class="btn btn-default"  onclick="delBatch()" value="删除">
-                                        <button type="button" class="btn btn-default" title="开启"
-                                                onclick='confirm("你确认要开启吗？")'><i class="fa fa-check"></i> 开启
-                                        </button>
-                                        <button type="button" class="btn btn-default" title="屏蔽"
-                                                onclick='confirm("你确认要屏蔽吗？")'><i class="fa fa-ban"></i> 屏蔽
-                                        </button>
                                         <button type="button" class="btn btn-default" title="刷新"
                                                 onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新
                                         </button>
@@ -121,7 +118,8 @@
                             </div>
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
-                                    <input type="text" class="form-control input-sm" placeholder="搜索">
+                                    <%--onchange="location.href = '${pageContext.request.contextPath}/product/findByProductName?productName='+$('#sereach').val()"--%>
+                                    <input id="search" type="text" class="form-control input-sm" placeholder="搜索" onchange="location.href = '${pageContext.request.contextPath}/product/findByProductName?productName='+$('#search').val()">
                                     <span class="glyphicon glyphicon-search form-control-feedback"></span>
                                 </div>
                             </div>
@@ -133,18 +131,18 @@
                                     <th class="" style="padding-right:0px;">
                                         <input id="selall" type="checkbox" class="icheckbox_square-blue">
                                     </th>
-                                    <th class="sorting_asc">订单编号</th>
+                                    <th class="sorting_asc" onclick="orderByProductNum()">订单编号</th>
                                     <th class="sorting">订单名称</th>
                                     <th class="sorting">出发城市</th>
-                                    <th class="sorting">出发时间</th>
-                                    <th class="sorting">产品价格</th>
+                                    <th class="sorting" onclick="orderByDepartureTime()">出发时间</th>
+                                    <th class="sorting" onclick="orderByProductPrice()">产品价格</th>
                                     <th class="sorting">产品描述</th>
                                     <th class="sorting">订单状态</th>
                                     <th class="text-center">操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${products}" var="product">
+                                <c:forEach items="${products.list}" var="product">
                                     <tr>
                                         <td><input name="id" type="checkbox" value="${product.id}"></td>
                                         <td>${product.productNum}</td>
@@ -196,31 +194,34 @@
                 <div class="box-footer">
                     <div class="pull-left">
                         <div class="form-group form-inline">
-                            总共2 页，共14 条数据。 每页
-                            <select class="form-control">
-                                <option>10</option>
-                                <option>15</option>
-                                <option>20</option>
-                                <option>50</option>
-                                <option>80</option>
-                            </select> 条
+                            总共${products.pages}页，共${products.total}条数据。 每页
+                            <select class="form-control" id="changePageSize" onchange="changePageNum()">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3" >3</option>
+                                <option value="4" >4</option>
+                                <option value="5">5</option>
+                            </select>条
                         </div>
                     </div>
 
                     <div class="box-tools pull-right">
                         <ul class="pagination">
                             <li>
-                                <a href="#" aria-label="Previous">首页</a>
+                                <a href="${pageContext.request.contextPath}/product/findAll?pageNum=1&pageSize=${products.pageSize}" aria-label="Previous">首页</a>
                             </li>
-                            <li><a href="#">上一页</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">下一页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/product/findAll?pageNum=${products.pageNum-1}&pageSize=${products.pageSize}">上一页</a></li>
+                            <c:forEach begin="1" end="${products.pages}" step="1" var="i">
+                                <c:if test="${i == products.pageNum}">
+                                    <li class="active"><a href="${pageContext.request.contextPath}/product/findAll?pageNum=${i}&pageSize=${products.pageSize}">${i}</a></li>
+                                </c:if>
+                                <c:if test="${i != products.pageNum}">
+                                    <li><a href="${pageContext.request.contextPath}/product/findAll?pageNum=${i}&pageSize=${products.pageSize}">${i}</a></li>
+                                </c:if>
+                            </c:forEach>
+                            <li><a href="${pageContext.request.contextPath}/product/findAll?pageNum=${products.pageNum+1}&pageSize=${products.pageSize}">下一页</a></li>
                             <li>
-                                <a href="#" aria-label="Next">尾页</a>
+                                <a href="${pageContext.request.contextPath}/product/findAll?pageNum=${products.pages}&pageSize=${products.pageSize}" aria-label="Next">尾页</a>
                             </li>
                         </ul>
                     </div>
@@ -290,13 +291,17 @@
 <script src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script>
-    $(document).ready(function () {
+    function changePageNum(){
+        var pageSize = $("#changePageSize").val();
+        location.href= "${pageContext.request.contextPath}/product/findAll?pageNum=${products.pageNum}&pageSize="+pageSize;
+    }
+    $(document).ready(function() {
+        $("#changePageSize").val(${products.pageSize});
         // 选择框
         $(".select2").select2();
-
         // WYSIHTML5编辑器
         $(".textarea").wysihtml5({
-            locale: 'zh-CN'
+            locale : 'zh-CN'
         });
     });
 
@@ -339,6 +344,59 @@
         } else {
             return false;
         }
+    }
+    function openBatch() {
+        if (confirm("确定开启吗？")) {
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function closeBatch() {
+        if (confirm("确定屏蔽吗？")) {
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function search1() {
+        alert(1)
+        $.get("${pageContext.request.contextPath}/product/findByProductName",{"productName":$("#search").val()},function (data) {
+            console.log(data)
+        },"json")
+
+    }
+    function orderByProductNum() {
+        var status = "asc";
+        if(status == "asc"){
+            status = "desc";
+        }else if(status == "desc"){
+            status = "asc";
+        }
+        location.href = "${pageContext.request.contextPath}/product/findOrderBy?orderSql=productNum "+status;
+
+    }
+    function orderByDepartureTime() {
+        var status = "asc";
+        if(status == "asc"){
+            status = "desc";
+        }else if(status == "desc"){
+            status = "asc";
+        }
+        location.href = "${pageContext.request.contextPath}/product/findOrderBy?orderSql=departureTime "+status;
+
+    }
+    function orderByProductPrice() {
+        var status = "asc";
+        if(status == "asc"){
+            status = "desc";
+        }else if(status == "desc"){
+            status = "asc";
+        }
+        location.href = "${pageContext.request.contextPath}/product/findOrderBy?orderSql=productPrice "+status;
+
     }
 </script>
 </body>

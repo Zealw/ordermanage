@@ -94,7 +94,7 @@
                     </li>
 
                     <li id="charts-morris">
-                        <a href="all-charts-morris.html">
+                        <a href="${pageContext.request.contextPath}/order/all">
                             <i class="fa fa-circle-o"></i> 订单管理
                         </a>
                     </li>
