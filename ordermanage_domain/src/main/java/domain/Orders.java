@@ -15,9 +15,31 @@ public class Orders {
     private Product product;
     private List<Traveller> travellers;
     private Member member;
-    private Integer payType;
+    private int payType;
     private String payTypeStr;
     private String orderDesc;
+    private String memberId;
+    private String productId;
+
+    public void setPayType(int payType) {
+        this.payType = payType;
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
 
     public String getId() {
         return id;
@@ -122,7 +144,7 @@ public class Orders {
         this.orderDesc = orderDesc;
     }
     public String getOrderStatusStr() {
-        return orderStatus == 0 ? "已支付":"未支付";
+        return orderStatus == 0 ? "未支付":"已支付";
     }
 
     public void setOrderStatusStr(String orderStatusStr) {

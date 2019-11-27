@@ -23,5 +23,13 @@ public interface OrdersDao {
             @Result(column = "productId",property = "product",one = @One(select = "dao.ProductDao.findById"))
     })
     Orders findById(String id);
+    @Insert("insert into orders values (#{id},#{orderNum},#{orderTime},#{peopleCount},#{orderDesc},#{payType},#{orderStatus},#{productId},#{memberId})")
+    void addOrder(Orders orders);
+    @Select("SELECT MAX(orderNum) FROM orders")
+    String findMaxOrderNum();
+    @Delete("delete from orders where id = #{id} ")
+    void delById(String id);
+    @Update("update orders set orderStatus ='1' where id = #{id}")
+    void updateOrderStatus(String id);
 
 }

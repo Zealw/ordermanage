@@ -3,6 +3,7 @@ package service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import dao.ProductDao;
+import domain.Member;
 import domain.Orders;
 import domain.Product;
 import domain.QueryVo;

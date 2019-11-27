@@ -1,22 +1,33 @@
 package domain;
 
+import java.util.List;
+
 public class QueryVo {
-    private  String orderSql;
-    private String order;
+    private List<Product> products;
+    private List<Traveller> travellers;
+    private List<Member> members;
 
-    public String getOrder() {
-        return order;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setOrder(String order) {
-        this.order = order;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
-    public String getOrderSql() {
-        return orderSql;
+    public List<Traveller> getTravellers() {
+        return travellers;
     }
 
-    public void setOrderSql(String orderSql) {
-        this.orderSql = orderSql;
+    public void setTravellers(List<Traveller> travellers) {
+        this.travellers = travellers;
+    }
+
+    public List<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Member> members) {
+        this.members = members;
     }
 }

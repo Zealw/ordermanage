@@ -12,7 +12,8 @@ import java.util.List;
 
 @Repository
 public interface MemberDao {
-
+    @Select("select * from member")
+    List<Member> findAll();
     @Select("select * from member where id = #{id}")
     Member findById(String id);
 }
