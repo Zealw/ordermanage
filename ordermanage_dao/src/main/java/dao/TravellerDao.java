@@ -14,4 +14,6 @@ public interface TravellerDao {
     List<Traveller> findById(String id);
     @Select("select * from traveller where id =#{id}")
     Traveller findByIid(String id);
+    @Select("select * from traveller where memberId = #{id}")
+    List<Traveller> findByMid(String id);
 }

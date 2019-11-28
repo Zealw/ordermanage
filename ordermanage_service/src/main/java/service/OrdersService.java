@@ -2,10 +2,7 @@ package service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import dao.MemberDao;
-import dao.OrdersDao;
-import dao.ProductDao;
-import dao.TravellerDao;
+import dao.*;
 import domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +21,8 @@ public class OrdersService {
     private MemberDao memberDao;
     @Autowired
     private TravellerDao travellerDao;
+    @Autowired
+    private Order_TravellerDao order_travellerDao;
 
     public PageInfo<Orders> findAll(int pageNum,int pageSize){
         sort();
@@ -56,6 +55,12 @@ public class OrdersService {
         orders.setOrderTime(new Date());
         orders.setOrderStatus(0);
         ordersDao.addOrder(orders);
+        Order_Traveller order_traveller = new Order_Traveller();
+        for(Traveller traveller :orders.getTravellers()){
+            order_traveller.setOrderId(orders.getId());
+            order_traveller.setTravellerId(traveller.getId());
+            order_travellerDao.addOaT(order_traveller);
+        }
     }
     public QueryVo findQuery(){
         List<Product> products = productDao.findAll();

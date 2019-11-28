@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
     <title>数据 - AdminLTE2定制版</title>
     <meta name="description" content="AdminLTE2定制版">
     <meta name="keywords" content="AdminLTE2定制版">
@@ -16,8 +15,7 @@
             content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
             name="viewport">
 
-    <link rel=“stylesheet”
-          href="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet"
@@ -64,148 +62,94 @@
           href="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-purple sidebar-mini">
 
 <div class="wrapper">
 
     <!-- 页面头部 -->
     <jsp:include page="header.jsp"></jsp:include>
     <!-- 页面头部 /-->
-
     <!-- 导航侧栏 -->
     <jsp:include page="sidebar.jsp"></jsp:include>
     <!-- 导航侧栏 /-->
 
     <!-- 内容区域 -->
-
     <div class="content-wrapper">
 
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                游记攻略管理
-                <small>游记攻略表单</small>
+                用户管理
+                <small>用户表单</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="all-admin-index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="all-travellog-manage-list.html">游记攻略管理</a></li>
-                <li class="active">游记攻略表单</li>
+                <li><a href="${pageContext.request.contextPath}/index.jsp"><i
+                        class="fa fa-dashboard"></i> 首页</a></li>
+                <li><a
+                        href="${pageContext.request.contextPath}/user/findAll.do">用户管理</a></li>
+                <li class="active">用户表单</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
 
-        <!-- 正文区域 -->
-        <section class="content">
+        <form action="${pageContext.request.contextPath}/user/add" method="post">
+            <!-- 正文区域 -->
+            <section class="content"> <!--产品信息-->
 
-            <div class="box-body">
+                <div class="panel panel-default">
+                    <div class="panel-heading">用户信息</div>
+                    <div class="row data-type">
 
-                <!--tab页-->
-                <div class="nav-tabs-custom">
-
-                    <!--tab头-->
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="#tab-form" data-toggle="tab">表单</a>
-                        </li>
-                    </ul>
-                    <!--tab头/-->
-
-                    <!--tab内容-->
-                    <div class="tab-content">
-
-                        <!--表单内容-->
-                        <form action="${pageContext.request.contextPath}/order/add" method="post">
-                        <div class="tab-pane active" id="tab-form">
-                            <div class="row data-type">
-                                <div class="col-md-2 title">路线名称</div>
-                                <div class="col-md-10 data">
-                                    <select class="form-control select2" style="width: 100%;" name="productId">
-                                        <c:forEach items="${query.products}" var="product">
-                                            <option value="${product.id}">${product.productName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="col-md-2 title">会员姓名</div>
-                                <div class="col-md-10 data">
-                                    <select class="form-control select2" style="width: 100%;" name="memberId" onchange="showTraveller()" id="memberIIID">
-                                        <c:forEach items="${query.members}" var="member">
-                                            <option value="${member.id}" selected="selected" >${member.name}</option>
-                                        </c:forEach>
-
-                                    </select>
-                                </div>
-                                <div class="col-md-2 title">游客姓名</div>
-                                <div class="col-md-10 data">
-                                    <select class="form-control select2" style="width: 100%;" name="travellerId" multiple="multiple" id="sele">
-                                        <%--<option hidden="" id="lll"></option>--%>
-                                    </select>
-                                </div>
-                            </div>
-
-
-
-
-                            <!--工具栏-->
-                            <div class="box-tools text-center">
-                                <input type="submit" class="btn bg-maroon" value="保存">
-                                <button type="button" class="btn bg-default" onclick="history.back(-1);">返回</button>
-                            </div>
-                            <!--工具栏/-->
-
-
-
-                            <!--游记输入模板-->
-                            <div id="day-tpl" style="display:none">
-                                <div class="box box-success">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">第xx天游记</h3>
-
-                                        <div class="box-tools pull-right">
-                                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="box-body">
-                                        <input type="text" class="form-control" placeholder="第xx天游记标题" value=""><br>
-                                        <textarea class="" placeholder="第xx天游记正文" style="width: 100%; height: 265px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--游记输入模板/-->
+                        <div class="col-md-2 title">用户名称</div>
+                        <div class="col-md-4 data">
+                            <input type="text" class="form-control" name="username"
+                                   placeholder="用户名称" value="">
                         </div>
-                        <!--表单内容/-->
-                        </form>
+                        <div class="col-md-2 title">密码</div>
+                        <div class="col-md-4 data">
+                            <input type="password" class="form-control" name="password"
+                                   placeholder="密码" value="">
+                        </div>
+                        <div class="col-md-2 title">邮箱</div>
+                        <div class="col-md-4 data">
+                            <input type="text" class="form-control" name="email"
+                                   placeholder="邮箱" value="">
+                        </div>
+                        <div class="col-md-2 title">联系电话</div>
+                        <div class="col-md-4 data">
+                            <input type="text" class="form-control" name="phoneNum"
+                                   placeholder="联系电话" value="">
+                        </div>
+                        <div class="col-md-2 title">用户状态</div>
+                        <div class="col-md-4 data">
+                            <select class="form-control select2" style="width: 100%"
+                                    name="status">
+                                <option value="0" selected="selected">关闭</option>
+                                <option value="1">开启</option>
+                            </select>
+                        </div>
+
                     </div>
-                    <!--tab内容/-->
-
                 </div>
-                <!--tab页/-->
-
-
-                <!-- .box-footer
-    <div class="box-footer"></div>
-    -->
-                <!-- /.box-footer-->
-
-            </div>
-
-        </section>
-        <!-- 正文区域 /-->
-
+                <!--订单信息/--> <!--工具栏-->
+                <div class="box-tools text-center">
+                    <button type="submit" class="btn bg-maroon">保存</button>
+                    <button type="button" class="btn bg-default"
+                            onclick="history.back(-1);">返回
+                    </button>
+                </div>
+                <!--工具栏/--> </section>
+            <!-- 正文区域 /-->
+        </form>
     </div>
     <!-- 内容区域 /-->
 
     <!-- 底部导航 -->
-    <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-            <b>Version</b> 1.0.8
-        </div>
-        <strong>Copyright &copy; 2014-2017 <a
-                href="http://www.itcast.cn">研究院研发部</a>.
-        </strong> All rights reserved. </footer>
+    <jsp:include page="foot.jsp"></jsp:include>
     <!-- 底部导航 /-->
 
 </div>
+
 
 <script
         src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -294,13 +238,13 @@
         src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // 选择框
         $(".select2").select2();
 
         // WYSIHTML5编辑器
         $(".textarea").wysihtml5({
-            locale : 'zh-CN'
+            locale: 'zh-CN'
         });
     });
 
@@ -312,49 +256,9 @@
             liObj.addClass("active");
         }
     }
-
-    $(document).ready(function() {
-
-        // 激活导航位置
-        setSidebarActive("order-manage");
-
-        // 列表按钮
-        $("#dataList td input[type='checkbox']").iCheck({
-            checkboxClass : 'icheckbox_square-blue',
-            increaseArea : '20%'
-        });
-        // 全选操作
-        $("#selall").click(function() {
-            var clicks = $(this).is(':checked');
-            if (!clicks) {
-                $("#dataList td input[type='checkbox']").iCheck("uncheck");
-            } else {
-                $("#dataList td input[type='checkbox']").iCheck("check");
-            }
-            $(this).data("clicks", !clicks);
-        });
-    });
-    function showTraveller() {
-        $.ajax({
-            url:"/order/traveller?memberId="+$("#memberIIID").val(),
-            type:"get",
-            success:function (data) {
-                $('#sele').empty();
-                for (i = 0; i < data.length; i++) {
-                    $("#sele").append('<option value="' + data[i].id + '">'+data[i].name+'</option>');
-                    console.log('<option value="' + data[i].id + '">'+data[i].name+'</option>')
-                }
-            },
-            error:function (data) {
-
-            },
-            dataType:"json"
-        })
-    }
-
-
 </script>
-</body>
 
+
+</body>
 
 </html>

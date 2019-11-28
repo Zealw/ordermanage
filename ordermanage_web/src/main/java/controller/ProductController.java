@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import service.ProductService;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/product")
 public class ProductController {
@@ -20,7 +18,7 @@ public class ProductController {
     public ModelAndView findAll(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "3") int pageSize){
         ModelAndView modelAndView = new ModelAndView();
         PageInfo<Product> all = productService.findAll(pageNum, pageSize);
-        modelAndView.setViewName("order_manage");
+        modelAndView.setViewName("product_manage");
         modelAndView.getModelMap().addAttribute("products",all);
         return modelAndView;
     }
@@ -28,7 +26,7 @@ public class ProductController {
     public ModelAndView findOrderBy(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "3") int pageSize,String orderSql){
         ModelAndView modelAndView = new ModelAndView();
         PageInfo<Product> all = productService.findOrderBy(pageNum, pageSize,orderSql);
-        modelAndView.setViewName("order_manage");
+        modelAndView.setViewName("product_manage");
         modelAndView.getModelMap().addAttribute("products",all);
         return modelAndView;
     }
@@ -36,7 +34,7 @@ public class ProductController {
     public ModelAndView findByProductName(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "3") int pageSize,String productName){
         ModelAndView modelAndView = new ModelAndView();
         PageInfo<Product> all = productService.findByProductName(pageNum, pageSize,productName);
-        modelAndView.setViewName("order_manage");
+        modelAndView.setViewName("product_manage");
         modelAndView.getModelMap().addAttribute("products",all);
         return modelAndView;
     }

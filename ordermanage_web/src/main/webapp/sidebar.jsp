@@ -16,7 +16,7 @@
                 <img src="${pageContext.request.contextPath}/img/user2-160x160.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>${user}</p>
+                <p>${user.username}</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
             </div>
         </div>
@@ -52,19 +52,19 @@
                 <ul class="treeview-menu">
 
                     <li id="admin-login">
-                        <a href="all-admin-login.html">
+                        <a href="${pageContext.request.contextPath}/user/all">
                             <i class="fa fa-circle-o"></i> 用户管理
                         </a>
                     </li>
 
                     <li id="admin-register">
-                        <a href="all-admin-register.html">
+                        <a href="${pageContext.request.contextPath}/role/all">
                             <i class="fa fa-circle-o"></i> 角色管理
                         </a>
                     </li>
 
                     <li id="admin-404">
-                        <a href="all-admin-404.html">
+                        <a href="${pageContext.request.contextPath}/permission/all">
                             <i class="fa fa-circle-o"></i> 资源权限管理
                         </a>
                     </li>
@@ -96,6 +96,11 @@
                     <li id="charts-morris">
                         <a href="${pageContext.request.contextPath}/order/all">
                             <i class="fa fa-circle-o"></i> 订单管理
+                        </a>
+                    </li>
+                    <li id="cha">
+                        <a href="${pageContext.request.contextPath}/member/all">
+                            <i class="fa fa-circle-o"></i> 会员管理
                         </a>
                     </li>
                 </ul>

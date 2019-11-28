@@ -69,9 +69,9 @@ public class UserInfo {
     }
 
     public String getStatusStr() {
-        return statusStr;
-    }
 
+        return status == 0 ? "关闭" : "开启";
+    }
     public void setStatusStr(String statusStr) {
         this.statusStr = statusStr;
     }

@@ -124,7 +124,7 @@
 
     <!-- 内容区域 -->
     <div class="content-wrapper">
-        <img src="${pageContext.request.contextPath}/img/cirrus.png" alt="" style="width: 100%">
+        <img src="${pageContext.request.contextPath}/img/11.jpg" alt="" style="width: 100%">
     </div>
     <!-- 内容区域 /-->
 

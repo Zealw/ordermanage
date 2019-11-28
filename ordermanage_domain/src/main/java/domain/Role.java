@@ -1,6 +1,5 @@
 package domain;
 
-import java.security.Permission;
 import java.util.List;
 
 public class Role {
