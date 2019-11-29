@@ -106,9 +106,9 @@
                                         </button>
                                         <%--onclick="delBatch()" 如果是true，则会执行submit，如果不是true，则不执行submit--%>
                                         <%--<input type="submit" class="btn btn-default"  onclick="delBatch()" value="删除">--%>
-                                        <input value="删除" class="btn btn-default" type="submit" onclick="form1.action='${pageContext.request.contextPath}/product/del';form1.submit();"  onclick="delBatch()"/>
-                                        <input value="开启" class="btn btn-default" type="submit" onclick="form1.action='${pageContext.request.contextPath}/product/updateStatusOpen';form1.submit();"  onclick="openBatch()"/>
-                                        <input value="屏蔽" class="btn btn-default" type="submit" onclick="form1.action='${pageContext.request.contextPath}/product/updateStatusClose';form1.submit();"  onclick="closeBatch()"/>
+                                        <input value="删除" class="btn btn-default" type="submit" onclick="form1.action='${pageContext.request.contextPath}/product/del';form1.submit();"  />
+                                        <input value="开启" class="btn btn-default" type="submit" onclick="form1.action='${pageContext.request.contextPath}/product/updateStatusOpen';form1.submit();"  />
+                                        <input value="屏蔽" class="btn btn-default" type="submit" onclick="form1.action='${pageContext.request.contextPath}/product/updateStatusClose';form1.submit();"  />
 
                                         <button type="button" class="btn btn-default" title="刷新"
                                                 onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新
@@ -119,7 +119,7 @@
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
                                     <%--onchange="location.href = '${pageContext.request.contextPath}/product/findByProductName?productName='+$('#sereach').val()"--%>
-                                    <input id="search" type="text" class="form-control input-sm" placeholder="搜索" onchange="location.href = '${pageContext.request.contextPath}/product/findByProductName?productName='+$('#sereach').val()">
+                                    <input id="search" type="text" class="form-control input-sm" placeholder="搜索" onchange="location.href = '${pageContext.request.contextPath}/product/findByProductName?productName='+$('#search').val()">
                                     <span class="glyphicon glyphicon-search form-control-feedback"></span>
                                 </div>
                             </div>
@@ -208,20 +208,20 @@
                     <div class="box-tools pull-right">
                         <ul class="pagination">
                             <li>
-                                <a href="${pageContext.request.contextPath}/product/findAll?pageNum=1&pageSize=${products.pageSize}" aria-label="Previous">首页</a>
+                                <a href="${pageContext.request.contextPath}/product/all?pageNum=1&pageSize=${products.pageSize}" aria-label="Previous">首页</a>
                             </li>
-                            <li><a href="${pageContext.request.contextPath}/product/findAll?pageNum=${products.pageNum-1}&pageSize=${products.pageSize}">上一页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/product/all?pageNum=${products.pageNum-1}&pageSize=${products.pageSize}">上一页</a></li>
                             <c:forEach begin="1" end="${products.pages}" step="1" var="i">
                                 <c:if test="${i == products.pageNum}">
-                                    <li class="active"><a href="${pageContext.request.contextPath}/product/findAll?pageNum=${i}&pageSize=${products.pageSize}">${i}</a></li>
+                                    <li class="active"><a href="${pageContext.request.contextPath}/product/all?pageNum=${i}&pageSize=${products.pageSize}">${i}</a></li>
                                 </c:if>
                                 <c:if test="${i != products.pageNum}">
-                                    <li><a href="${pageContext.request.contextPath}/product/findAll?pageNum=${i}&pageSize=${products.pageSize}">${i}</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/product/all?pageNum=${i}&pageSize=${products.pageSize}">${i}</a></li>
                                 </c:if>
                             </c:forEach>
-                            <li><a href="${pageContext.request.contextPath}/product/findAll?pageNum=${products.pageNum+1}&pageSize=${products.pageSize}">下一页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/product/all?pageNum=${products.pageNum+1}&pageSize=${products.pageSize}">下一页</a></li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/product/findAll?pageNum=${products.pages}&pageSize=${products.pageSize}" aria-label="Next">尾页</a>
+                                <a href="${pageContext.request.contextPath}/product/all?pageNum=${products.pages}&pageSize=${products.pageSize}" aria-label="Next">尾页</a>
                             </li>
                         </ul>
                     </div>
@@ -293,7 +293,7 @@
 <script>
     function changePageNum(){
         var pageSize = $("#changePageSize").val();
-        location.href= "${pageContext.request.contextPath}/product/findAll?pageNum=${products.pageNum}&pageSize="+pageSize;
+        location.href= "${pageContext.request.contextPath}/product/all?pageNum=${products.pageNum}&pageSize="+pageSize;
     }
     $(document).ready(function() {
         $("#changePageSize").val(${products.pageSize});
@@ -362,7 +362,6 @@
         }
     }
     function search1() {
-        alert(1)
         $.get("${pageContext.request.contextPath}/product/findByProductName",{"productName":$("#search").val()},function (data) {
             console.log(data)
         },"json")
@@ -374,7 +373,6 @@
     function orderByProductNum() {
         var url = window.location.search;
         var status;
-        alert(url.indexOf("asc") >= 0)
         if(url.indexOf("asc") >= 0){
             status = "desc";
         }else{
@@ -386,7 +384,6 @@
     function orderByDepartureTime() {
         var url = window.location.search;
         var status;
-        alert(url.indexOf("asc") >= 0)
         if(url.indexOf("asc") >= 0){
             status = "desc";
         }else{
@@ -398,7 +395,6 @@
     function orderByProductPrice() {
         var url = window.location.search;
         var status;
-        alert(url.indexOf("asc") >= 0)
         if(url.indexOf("asc") >= 0){
             status = "desc";
         }else{

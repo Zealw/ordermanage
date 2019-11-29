@@ -89,6 +89,15 @@ public class OrdersController {
         return travellers;
     }
 
+    @RequestMapping("/findByOrderNum")
+    public ModelAndView findByProductName(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "3") int pageSize,String orderNum){
+        ModelAndView modelAndView = new ModelAndView();
+        PageInfo<Orders> all = ordersService.findByOrderNum(pageNum, pageSize,orderNum);
+        modelAndView.setViewName("order_list");
+        modelAndView.getModelMap().addAttribute("orders",all);
+        return modelAndView;
+    }
+
 
 
 

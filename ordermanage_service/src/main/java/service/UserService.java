@@ -1,6 +1,9 @@
 package service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import dao.UserDao;
+import domain.Member;
 import domain.Role;
 import domain.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +42,10 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public List<UserInfo> findAll(){
-        return userDao.findAll();
+    public PageInfo<UserInfo> findAll(int pageNum, int pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        List<UserInfo> users = userDao.findAll();
+        return new PageInfo<>(users);
     }
     public void add(UserInfo userInfo){
         userInfo.setId(UUID.randomUUID().toString());
@@ -54,5 +59,12 @@ public class UserService implements UserDetailsService {
     }
     public UserInfo findById(String id){
         return userDao.findById(id);
+    }
+
+    public PageInfo<UserInfo> findByUsername(int pageNum, int pageSize,String username){
+        PageHelper.startPage(pageNum,pageSize);
+        username = "%" +username +"%";
+        List<UserInfo> all = userDao.findByUsernameS(username);
+        return new PageInfo<>(all);
     }
 }

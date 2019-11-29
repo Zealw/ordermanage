@@ -1,7 +1,10 @@
 package service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import dao.PermissionDao;
 import dao.RoleDao;
+import domain.Member;
 import domain.Permission;
 import domain.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +17,10 @@ import java.util.UUID;
 public class PermissionService {
     @Autowired
     private PermissionDao permissionDao;
-    public List<Permission> findAll(){
-        return permissionDao.findAll();
+    public PageInfo<Permission> findAll(int pageNum, int pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        List<Permission> permission = permissionDao.findAll();
+        return new PageInfo<>(permission);
     }
     public void add(Permission permission){
         permission.setId(UUID.randomUUID().toString());
@@ -29,6 +34,13 @@ public class PermissionService {
     }
     public Permission findById(String id){
         return permissionDao.findById(id);
+    }
+
+    public PageInfo<Permission> findByPermissionName(int pageNum, int pageSize,String permissionName){
+        PageHelper.startPage(pageNum,pageSize);
+        permissionName = "%" +permissionName +"%";
+        List<Permission> all = permissionDao.findByPermissionName(permissionName);
+        return new PageInfo<>(all);
     }
 
 

@@ -14,11 +14,11 @@ import service.ProductService;
 public class ProductController {
     @Autowired
     private ProductService productService;
-    @RequestMapping("/findAll")
+    @RequestMapping("/all")
     public ModelAndView findAll(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "3") int pageSize){
         ModelAndView modelAndView = new ModelAndView();
         PageInfo<Product> all = productService.findAll(pageNum, pageSize);
-        modelAndView.setViewName("product_manage");
+        modelAndView.setViewName("product_list");
         modelAndView.getModelMap().addAttribute("products",all);
         return modelAndView;
     }
@@ -26,7 +26,7 @@ public class ProductController {
     public ModelAndView findOrderBy(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "3") int pageSize,String orderSql){
         ModelAndView modelAndView = new ModelAndView();
         PageInfo<Product> all = productService.findOrderBy(pageNum, pageSize,orderSql);
-        modelAndView.setViewName("product_manage");
+        modelAndView.setViewName("product_list");
         modelAndView.getModelMap().addAttribute("products",all);
         return modelAndView;
     }
@@ -34,26 +34,26 @@ public class ProductController {
     public ModelAndView findByProductName(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "3") int pageSize,String productName){
         ModelAndView modelAndView = new ModelAndView();
         PageInfo<Product> all = productService.findByProductName(pageNum, pageSize,productName);
-        modelAndView.setViewName("product_manage");
+        modelAndView.setViewName("product_list");
         modelAndView.getModelMap().addAttribute("products",all);
         return modelAndView;
     }
     @RequestMapping("/add")
     public String add(Product product){
         productService.add(product);
-        return "forward:/product/findAll";
+        return "forward:/product/all";
     }
     @RequestMapping("/del")
     public String del(String[] id){
         for(String s : id){
             productService.del(s);
         }
-        return "forward:/product/findAll";
+        return "forward:/product/all";
     }
     @RequestMapping("/update")
     public String update(Product product){
        productService.update(product);
-        return "forward:/product/findAll";
+        return "forward:/product/all";
     }
     @RequestMapping("/findById")
     public ModelAndView findById(String id ){
@@ -71,7 +71,7 @@ public class ProductController {
                 productService.updateStatusOpen(s);
             }
         }
-        return "redirect:/product/findAll";
+        return "redirect:/product/all";
     }
     @RequestMapping("/updateStatusClose")
     public String updateStatusClose(String[] id){
@@ -81,7 +81,7 @@ public class ProductController {
             }
         }
 
-        return "redirect:/product/findAll";
+        return "redirect:/product/all";
     }
 
 

@@ -21,4 +21,6 @@ public interface PermissionDao {
     void update(Permission permission);
     @Delete("delete from permission where id = #{id}")
     void del(String id);
+    @Select("select *from permission where permissionName like #{permissionName} ")
+    List<Permission> findByPermissionName(String permissionName);
 }

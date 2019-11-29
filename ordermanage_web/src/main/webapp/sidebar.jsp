@@ -88,7 +88,7 @@
                 <ul class="treeview-menu">
 
                     <li id="charts-chartjs">
-                        <a href="${pageContext.request.contextPath}/product/findAll">
+                        <a href="${pageContext.request.contextPath}/product/all">
                             <i class="fa fa-circle-o"></i> 产品管理
                         </a>
                     </li>

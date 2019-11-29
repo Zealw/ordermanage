@@ -1,14 +1,15 @@
 package controller;
 
 import com.github.pagehelper.PageInfo;
-import domain.Product;
 import domain.Role;
+import domain.Role;
+import domain.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import service.ProductService;
+import service.RoleService;
 import service.RoleService;
 
 import java.util.List;
@@ -19,10 +20,11 @@ import java.util.UUID;
 public class RoleController {
     @Autowired
     private RoleService roleService;
+
     @RequestMapping("/all")
-    public ModelAndView findAll(){
+    public ModelAndView findAll(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "3") int pageSize){
         ModelAndView modelAndView = new ModelAndView();
-        List<Role> roles = roleService.findAll();
+        PageInfo<Role> roles = roleService.findAll(pageNum,pageSize);
         modelAndView.setViewName("role_list");
         modelAndView.getModelMap().addAttribute("roles",roles);
         return modelAndView;
@@ -54,6 +56,14 @@ public class RoleController {
         Role role = roleService.findById(id);
         modelAndView.getModelMap().addAttribute("role",role);
         modelAndView.setViewName("role_info");
+        return modelAndView;
+    }
+    @RequestMapping("/findByRoleName")
+    public ModelAndView findByRoleName(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "3") int pageSize,String roleName){
+        ModelAndView modelAndView = new ModelAndView();
+        PageInfo<Role> all = roleService.findByRoleName(pageNum, pageSize,roleName);
+        modelAndView.setViewName("role_list");
+        modelAndView.getModelMap().addAttribute("roles",all);
         return modelAndView;
     }
 

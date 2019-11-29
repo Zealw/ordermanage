@@ -1,9 +1,12 @@
 package controller;
 
+import com.github.pagehelper.PageInfo;
+import domain.Orders;
 import domain.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import service.PermissionService;
 
@@ -15,9 +18,9 @@ public class PermissionController {
     @Autowired
     private PermissionService permissionService;
     @RequestMapping("/all")
-    public ModelAndView findAll(){
+    public ModelAndView findAll(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "3") int pageSize){
         ModelAndView modelAndView = new ModelAndView();
-        List<Permission> permissions = permissionService.findAll();
+        PageInfo<Permission> permissions = permissionService.findAll(pageNum,pageSize);
         modelAndView.setViewName("permission_list");
         modelAndView.getModelMap().addAttribute("permissions",permissions);
         return modelAndView;
@@ -45,6 +48,14 @@ public class PermissionController {
     public String del(String id){
         permissionService.del(id);
         return "redirect:/permission/all";
+    }
+    @RequestMapping("/findByPermissionName")
+    public ModelAndView findByRoleName(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "3") int pageSize,String permissionName){
+        ModelAndView modelAndView = new ModelAndView();
+        PageInfo<Permission> all = permissionService.findByPermissionName(pageNum, pageSize,permissionName);
+        modelAndView.setViewName("permission_list");
+        modelAndView.getModelMap().addAttribute("permissions",all);
+        return modelAndView;
     }
 
 

@@ -118,8 +118,8 @@
                         </div>
                         <div class="box-tools pull-right">
                             <div class="has-feedback">
-                                <input type="text" class="form-control input-sm"
-                                       placeholder="搜索"> <span
+                                <input id="search" type="text" class="form-control input-sm" placeholder="搜索" onchange="location.href = '${pageContext.request.contextPath}/order/findByOrderNum?orderNum='+$('#search').val()">
+                                <span
                                     class="glyphicon glyphicon-search form-control-feedback"></span>
                             </div>
                         </div>

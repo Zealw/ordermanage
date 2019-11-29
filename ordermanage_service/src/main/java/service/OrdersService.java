@@ -74,6 +74,13 @@ public class OrdersService {
 
     }
 
+    public PageInfo<Orders> findByOrderNum(int pageNum, int pageSize,String orderNum){
+        PageHelper.startPage(pageNum,pageSize);
+        orderNum = "%" +orderNum +"%";
+        List<Orders> all = ordersDao.findByOrderNum(orderNum);
+        return new PageInfo<>(all);
+    }
+
 
 
 

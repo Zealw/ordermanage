@@ -32,4 +32,13 @@ public interface OrdersDao {
     @Update("update orders set orderStatus ='1' where id = #{id}")
     void updateOrderStatus(String id);
 
+    @Select("select *from orders where orderNum like #{orderNum} ")
+    @Results({
+            @Result(id = true,property ="id",column = "id"),
+            @Result(property = "member",column = "memberId" ,one = @One(select = "dao.MemberDao.findById")),
+            @Result(property = "travellers" ,column = "id" ,many = @Many(select = "dao.TravellerDao.findById")),
+            @Result(column = "productId",property = "product",one = @One(select = "dao.ProductDao.findById"))
+    })
+    List<Orders> findByOrderNum(String orderNum);
+
 }

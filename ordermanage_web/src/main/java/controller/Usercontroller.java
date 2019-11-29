@@ -1,10 +1,13 @@
 package controller;
 
+import com.github.pagehelper.PageInfo;
+import domain.Member;
 import domain.Role;
 import domain.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import service.RoleService;
 import service.UserService;
@@ -18,11 +21,12 @@ public class Usercontroller {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+
     @RequestMapping("/all")
-    public ModelAndView findAll(){
+    public ModelAndView findAll(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "3") int pageSize){
         ModelAndView modelAndView = new ModelAndView();
+        PageInfo<UserInfo> users = userService.findAll(pageNum,pageSize);
         modelAndView.setViewName("user_list");
-        List<UserInfo> users = userService.findAll();
         modelAndView.getModelMap().addAttribute("users",users);
         return modelAndView;
     }
@@ -53,6 +57,14 @@ public class Usercontroller {
     public String addRoleToUser(String userId,String[] roleIds){
         userService.addRoleToUser(userId,roleIds);
         return "redirect:/user/all";
+    }
+    @RequestMapping("/findByUsername")
+    public ModelAndView findByProductName(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "3") int pageSize,String username){
+        ModelAndView modelAndView = new ModelAndView();
+        PageInfo<UserInfo> all = userService.findByUsername(pageNum, pageSize,username);
+        modelAndView.setViewName("user_list");
+        modelAndView.getModelMap().addAttribute("users",all);
+        return modelAndView;
     }
 }
 

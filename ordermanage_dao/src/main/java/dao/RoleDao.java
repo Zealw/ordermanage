@@ -31,5 +31,11 @@ public interface RoleDao {
 
     @Select("SELECT * FROM role WHERE id  NOT IN (SELECT roleId FROM user_role WHERE userId = #{uid})")
     List<Role> findOthersById(String uid);
+    @Results({
+            @Result(id = true,property = "id", column = "id"),
+            @Result(property = "permissions", column = "id", many = @Many(select = "dao.PermissionDao.findByRid"))
+    })
+    @Select("select *from role where roleName like #{roleName} ")
+    List<Role> findByRoleName(String roleName);
 
 }
